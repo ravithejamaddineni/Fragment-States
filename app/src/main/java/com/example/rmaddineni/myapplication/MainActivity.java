@@ -3,6 +3,7 @@ package com.example.rmaddineni.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,7 +22,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.start_activity_button).setOnClickListener(this);
         mFragmentManger = getSupportFragmentManager();
 
-        mFragmentManger.beginTransaction().replace(R.id.container, new MyFragment1(), "First Fragment").commit();
+        Fragment first;
+        if(mFragmentManger.findFragmentByTag("First Fragment")!=null) {
+            first = mFragmentManger.findFragmentByTag("First Fragment");
+        }else{
+            first = new MyFragment1();
+        }
+        mFragmentManger.beginTransaction().replace(R.id.container, first, "First Fragment").commit();
         Log.d(TAG, "onCreate: ");
     }
 
