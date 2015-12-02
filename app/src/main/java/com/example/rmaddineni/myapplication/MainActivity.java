@@ -23,12 +23,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFragmentManger = getSupportFragmentManager();
 
         Fragment first;
+        // surprisingly the fragmnets which are added are getting retained even if the configuration is changed so no need to add them again
         if(mFragmentManger.findFragmentByTag("First Fragment")!=null) {
             first = mFragmentManger.findFragmentByTag("First Fragment");
         }else{
             first = new MyFragment1();
+            mFragmentManger.beginTransaction().replace(R.id.container, first, "First Fragment").commit();
         }
-        mFragmentManger.beginTransaction().replace(R.id.container, first, "First Fragment").commit();
+
         Log.d(TAG, "onCreate: ");
     }
 
